@@ -19,12 +19,12 @@
 
 ## INTRODUCTION
 
-Ce repository contient le fichier Dockerfile de [zenmap](https://nmap.org/zenmap) pour [Docker](https://www.docker.com), mis à jour automatiquement dans le [Docker Hub](https://hub.docker.com/r/alexandreoda/zenmap/) public.
+Ce repository contient le fichier Dockerfile de [zenmap](https://nmap.org/zenmap) pour [docker](https://www.docker.com), mis à jour automatiquement dans le [docker hub](https://hub.docker.com/r/alexandreoda/zenmap/) public.
 
 
 ## PREREQUIS
 
-Installer [Docker](https://www.docker.com)
+Installer [docker](https://www.docker.com)
 
 
 ## INSTALLATION
