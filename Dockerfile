@@ -1,6 +1,9 @@
 FROM debian:stretch-slim
 
-MAINTAINER https://oda-alexandre.github.io
+MAINTAINER https://oda-alexandre.com
+
+# VARIABLES
+ENV USER zenmap
 
 # INSTALLATION DES PREREQUIS
 RUN apt-get update && apt-get install --no-install-recommends -y \
@@ -8,15 +11,18 @@ sudo \
 tor \
 privoxy \
 nmap \
-zenmap
+zenmap && \
 
 # AJOUT UTILISATEUR
-RUN useradd -d /home/zenmap -m zenmap && \
-passwd -d zenmap && \
-adduser zenmap sudo
+useradd -d /home/${USER} -m ${USER} && \
+passwd -d ${USER} && \
+adduser ${USER} sudo
 
 # SELECTION UTILISATEUR
-USER zenmap
+USER ${USER}
+
+# SELECTION ESPACE DE TRAVAIL
+WORKDIR /home/${USER}
 
 # CONFIGURATION DE TOR PRIVOXY
 RUN sudo rm -f /etc/privoxy/config && \

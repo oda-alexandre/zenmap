@@ -1,25 +1,32 @@
 # ZENMAP
 
-![zenmap](https://raw.githubusercontent.com/oda-alexandre/zenmap/master/img/logo-zenmap.png) ![docker](https://raw.githubusercontent.com/oda-alexandre/zenmap/master/img/logo-docker.png)
+[![dockeri.co](https://dockeri.co/image/alexandreoda/zenmap)](https://hub.docker.com/r/alexandreoda/zenmap)
 
 
 ## INDEX
 
-- [Build Docker](#BUILD)
+- [Badges](#BADGES)
 - [Introduction](#INTRODUCTION)
 - [Prerequis](#PREREQUIS)
 - [Installation](#INSTALLATION)
 - [License](#LICENSE)
 
 
-## BUILD DOCKER
+## BADGES
 
-[![zenmap docker build](https://img.shields.io/docker/build/alexandreoda/zenmap.svg)](https://hub.docker.com/r/alexandreoda/zenmap)
+[![version](https://images.microbadger.com/badges/version/alexandreoda/zenmap.svg)](https://microbadger.com/images/alexandreoda/zenmap)
+[![size](https://images.microbadger.com/badges/image/alexandreoda/zenmap.svg)](https://microbadger.com/images/alexandreoda/zenmap")
+[![build](https://img.shields.io/docker/build/alexandreoda/zenmap.svg)](https://hub.docker.com/r/alexandreoda/zenmap)
+[![automated](https://img.shields.io/docker/automated/alexandreoda/zenmap.svg)](https://hub.docker.com/r/alexandreoda/zenmap)
 
 
 ## INTRODUCTION
 
-Ce repository contient le fichier Dockerfile de [zenmap](https://nmap.org/zenmap) pour [docker](https://www.docker.com), mis à jour automatiquement dans le [docker hub](https://hub.docker.com/r/alexandreoda/zenmap/) public.
+Ce repository contient le fichier Dockerfile de
+
+- [zenmap](https://nmap.org/zenmap)
+
+Mis à jour automatiquement dans le [docker hub public](https://hub.docker.com/r/alexandreoda/zenmap/)
 
 
 ## PREREQUIS
