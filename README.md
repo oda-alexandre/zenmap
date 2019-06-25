@@ -13,10 +13,7 @@
 
 ## BADGES
 
-[![version](https://images.microbadger.com/badges/version/alexandreoda/zenmap.svg)](https://microbadger.com/images/alexandreoda/zenmap)
-[![size](https://images.microbadger.com/badges/image/alexandreoda/zenmap.svg)](https://microbadger.com/images/alexandreoda/zenmap")
-[![build](https://img.shields.io/docker/build/alexandreoda/zenmap.svg)](https://hub.docker.com/r/alexandreoda/zenmap)
-[![automated](https://img.shields.io/docker/automated/alexandreoda/zenmap.svg)](https://hub.docker.com/r/alexandreoda/zenmap)
+[![pipeline status](https://gitlab.com/oda-alexandre/zenmap/badges/master/pipeline.svg)](https://gitlab.com/oda-alexandre/zenmap/commits/master)
 
 
 ## INTRODUCTION
