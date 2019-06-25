@@ -25,7 +25,7 @@ USER ${USER}
 WORKDIR /home/${USER}
 
 # CONFIGURATION DE TOR PRIVOXY
-RUN sudo rm -f /etc/privoxy/config && \
+RUN sudo(8) rm -f /etc/privoxy/config && \
 sudo rm -f /etc/tor/torcc && \
 echo "listen-address localhost:8118" | sudo tee -a /etc/privoxy/config && \
 echo "forward-socks5 / localhost:9050 ." | sudo tee -a /etc/privoxy/config && \
@@ -34,7 +34,7 @@ echo "forward-socks4a / localhost:9050 ." | sudo tee -a /etc/privoxy/config && \
 echo "SOCKSPort localhost:9050" | sudo tee -a /etc/tor/torcc
 
 # NETTOYAGE
-RUN sudo apt-get --purge autoremove -y && \
+RUN sudo(8) apt-get --purge autoremove -y && \
 sudo apt-get autoclean -y && \
 sudo rm /etc/apt/sources.list && \
 sudo rm -rf /var/cache/apt/archives/* && \
