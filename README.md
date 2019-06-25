@@ -1,7 +1,6 @@
 # ZENMAP
 
-[![dockeri.co](https://dockeri.co/image/alexandreoda/zenmap)](https://hub.docker.com/r/alexandreoda/zenmap)
-
+<img src="https://s24255.pcdn.co/wp-content/uploads/2013/08/zenmap.png" />
 
 ## INDEX
 

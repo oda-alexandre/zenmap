@@ -96,6 +96,6 @@ test:
   allow_failure: false
   script:
     - docker pull $CI_REGISTRY_IMAGE
-    - docker run --rm $CI_REGISTRY_IMAGE
+    - docker run -d --rm $CI_REGISTRY_IMAGE
   only:
     - master
