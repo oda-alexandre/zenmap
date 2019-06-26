@@ -26,7 +26,7 @@ code_quality:
   allow_failure: false
   script:
     - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
-    - docker run
+    - docker run --rm
         --env SOURCE_CODE="$PWD"
         --volume $PWD:/code
         --volume /var/run/docker.sock:/var/run/docker.sock
@@ -38,8 +38,8 @@ container_scanning:
   stage: test
   allow_failure: false
   script:
-    - docker run -d --name db arminc/clair-db:latest
-    - docker run -p 6060:6060 --link db:postgres -d --name clair --restart on-failure arminc/clair-local-scan:${CLAIR_LOCAL_SCAN_VERSION}
+    - docker run --rm -d --name db arminc/clair-db:latest
+    - docker run --rm -p 6060:6060 --link db:postgres -d --name clair --restart on-failure arminc/clair-local-scan:${CLAIR_LOCAL_SCAN_VERSION}
     - apk add -U wget ca-certificates
     - docker pull $CI_REGISTRY_IMAGE
     - wget https://github.com/arminc/clair-scanner/releases/download/v8/clair-scanner_linux_amd64
@@ -59,7 +59,7 @@ container_scanning:
 #   allow_failure: false
 #   script:
 #     - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
-#     - docker run
+#     - docker run --rm
 #         --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}"
 #         --volume $PWD:/code
 #         --volume /var/run/docker.sock:/var/run/docker.sock
@@ -72,7 +72,7 @@ sast:
   allow_failure: false
   script:
     - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
-    - docker run
+    - docker run --rm
         --env SAST_CONFIDENCE_LEVEL="${SAST_CONFIDENCE_LEVEL:-3}"
         --volume $PWD:/code
         --volume /var/run/docker.sock:/var/run/docker.sock
@@ -85,7 +85,7 @@ license_management:
   allow_failure: false
   script:
     - export LICENSE_MANAGEMENT_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
-    - docker run
+    - docker run --rm
         --volume $PWD:/code
         "registry.gitlab.com/gitlab-org/security-products/license-management:$LICENSE_MANAGEMENT_VERSION" analyze /code
   artifacts:
@@ -96,6 +96,6 @@ test:
   allow_failure: false
   script:
     - docker pull $CI_REGISTRY_IMAGE
-    - docker run -d --rm $CI_REGISTRY_IMAGE
+    - docker run --rm -d $CI_REGISTRY_IMAGE
   only:
     - master
