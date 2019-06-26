@@ -39,7 +39,7 @@ container_scanning:
   allow_failure: false
   script:
     - docker run --rm -d --name db arminc/clair-db:latest
-    - docker run --rm -p 6060:6060 --link db:postgres -d --name clair --restart on-failure arminc/clair-local-scan:${CLAIR_LOCAL_SCAN_VERSION}
+    - docker run -p 6060:6060 --link db:postgres -d --name clair --restart on-failure arminc/clair-local-scan:${CLAIR_LOCAL_SCAN_VERSION}
     - apk add -U wget ca-certificates
     - docker pull $CI_REGISTRY_IMAGE
     - wget https://github.com/arminc/clair-scanner/releases/download/v8/clair-scanner_linux_amd64
