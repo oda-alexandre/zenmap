@@ -1,11 +1,13 @@
+# IMAGE TO USE
 FROM debian:stretch-slim
 
+# MAINTAINER
 MAINTAINER https://www.oda-alexandre.com/
 
 # VARIABLES
 ENV USER zenmap
 
-# INSTALLATION DES PREREQUIS
+# INSTALL PACKAGES
 RUN apt-get update && apt-get install --no-install-recommends -y \
 sudo \
 tor \
@@ -13,18 +15,18 @@ privoxy \
 nmap \
 zenmap && \
 
-# AJOUT UTILISATEUR
+# ADD USER
 useradd -d /home/${USER} -m ${USER} && \
 passwd -d ${USER} && \
 adduser ${USER} sudo
 
-# SELECTION UTILISATEUR
+# SELECT USER
 USER ${USER}
 
-# SELECTION ESPACE DE TRAVAIL
+# SELECT WORKING SPACE
 WORKDIR /home/${USER}
 
-# CONFIGURATION DE TOR PRIVOXY
+# CONFIG OF TOR PRIVOXY
 RUN sudo rm -f /etc/privoxy/config && \
 sudo rm -f /etc/tor/torcc && \
 echo "listen-address localhost:8118" | sudo tee -a /etc/privoxy/config && \
@@ -33,12 +35,12 @@ echo "forward-socks4 / localhost:9050 ." | sudo tee -a /etc/privoxy/config && \
 echo "forward-socks4a / localhost:9050 ." | sudo tee -a /etc/privoxy/config && \
 echo "SOCKSPort localhost:9050" | sudo tee -a /etc/tor/torcc
 
-# NETTOYAGE
+# CLEANING
 RUN sudo apt-get --purge autoremove -y && \
 sudo apt-get autoclean -y && \
 sudo rm /etc/apt/sources.list && \
 sudo rm -rf /var/cache/apt/archives/* && \
 sudo rm -rf /var/lib/apt/lists/*
 
-# COMMANDE AU DEMARRAGE DU CONTENEUR
-CMD sudo service tor start && sudo service privoxy start && sudo zenmap
+# START THE CONTAINER
+CMD sudo service tor start && sudo service privoxy start && sudo zenmap \
