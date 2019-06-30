@@ -1,6 +1,6 @@
 # ZENMAP
 
-<img src="https://s24255.pcdn.co/wp-content/uploads/2013/08/zenmap.png" />
+<img src="https://s24255.pcdn.co/wp-content/uploads/2013/08/zenmap.png" width="200" height="200"/>
 
 ## INDEX
 
