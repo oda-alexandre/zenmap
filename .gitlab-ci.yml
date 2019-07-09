@@ -6,6 +6,8 @@ services:
 stages:
   - build
   - test
+  - staging
+  - deploy
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -22,6 +24,8 @@ build:
     - echo -e '\033[36;1m ******* DOCKER BUILD IMAGE ******** \033[0m'
     - docker build -t $CI_REGISTRY_IMAGE .
     - docker push $CI_REGISTRY_IMAGE
+  only:
+    - dev
 
 code_quality:
   stage: test
@@ -33,9 +37,11 @@ code_quality:
         --env SOURCE_CODE="$PWD"
         --volume $PWD:/code
         --volume /var/run/docker.sock:/var/run/docker.sock
-        "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
+        "registry.gitlab.com/gitlab-org/security-products/codequality:${VERSION:-latest}" /code
   artifacts:
-      paths: [gl-code-quality-report.json]
+    paths: [gl-code-quality-report.json]
+  only:
+    - dev
 
 container_scanning:
   stage: test
@@ -60,7 +66,9 @@ container_scanning:
     - while( ! wget -T 10 -q -O /dev/null http://docker:6060/v1/namespaces ) ; do sleep 1 ; echo -n "." ; if [ $retries -eq 10 ] ; then echo " Timeout, aborting." ; exit 1 ; fi ; retries=$(($retries+1)) ; done
     - ./clair-scanner -c http://docker:6060 --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml $CI_REGISTRY_IMAGE || true
   artifacts:
-      paths: [gl-container-scanning-report.json]
+    paths: [gl-container-scanning-report.json]
+  only:
+    - dev
 
 # dependency_scanning:
 #   stage: test
@@ -74,7 +82,9 @@ container_scanning:
 #         --volume /var/run/docker.sock:/var/run/docker.sock
 #         "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
 #   artifacts:
-#       paths: [gl-dependency-scanning-report.json]
+#     paths: [gl-dependency-scanning-report.json]
+#   only:
+#     - dev
 
 sast:
   stage: test
@@ -89,6 +99,8 @@ sast:
         "registry.gitlab.com/gitlab-org/security-products/sast:$SP_VERSION" /app/bin/run /code
   artifacts:
     paths: [gl-sast-report.json]
+  only:
+    - dev
 
 license_management:
   stage: test
@@ -101,6 +113,8 @@ license_management:
         "registry.gitlab.com/gitlab-org/security-products/license-management:$LICENSE_MANAGEMENT_VERSION" analyze /code
   artifacts:
     paths: [gl-license-management-report.json]
+  only:
+    - dev
 
 test:
   stage: test
@@ -109,5 +123,29 @@ test:
     - echo -e '\033[36;1m ******* TEST RUN ******** \033[0m'
     - docker pull $CI_REGISTRY_IMAGE
     - docker run --rm -d $CI_REGISTRY_IMAGE
+  only:
+    - dev
+
+staging:
+  stage: staging
+  when: on_success
+  allow_failure: false
+  script:
+    - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
+  only:
+    - merge_requests
+
+enable_merge:
+  only:
+    - merge_requests
+  script:
+    - echo true
+
+deploy:
+  stage: deploy
+  when: on_success
+  allow_failure: false
+  script:
+    - echo -e '\033[36;1m ******* DEPLOYMENT FINISHED SUCCESSFULLY ******** \033[0m'
   only:
     - master
