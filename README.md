@@ -10,11 +10,9 @@
 - [Install](#INSTALL)
 - [License](#LICENSE)
 
-
 ## BADGES
 
 [![pipeline status](https://gitlab.com/oda-alexandre/zenmap/badges/master/pipeline.svg)](https://gitlab.com/oda-alexandre/zenmap/commits/master)
-
 
 ## INTRODUCTION
 
@@ -30,18 +28,13 @@ Automatically updated on :
 
 - [docker hub public](https://hub.docker.com/r/alexandreoda/zenmap/)
 
-
 ## PREREQUISITES
 
 Use [docker](https://www.docker.com)
 
-
 ## INSTALL
 
-```
-docker run -d --name zenmap -v ${HOME}:/home/zenmap -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v ${XAUTHORITY}:/xauthority:ro -e XAUTHORITY='/xauthority' -e DISPLAY alexandreoda/zenmap
-```
-
+```docker run -d --name zenmap -v ${HOME}:/home/zenmap -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v ${XAUTHORITY}:/xauthority:ro -e XAUTHORITY='/xauthority' -e DISPLAY alexandreoda/zenmap```
 
 ## LICENSE
 
