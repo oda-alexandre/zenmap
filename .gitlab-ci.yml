@@ -107,26 +107,39 @@ test_app:
   only:
     - dev
 
-staging:
+open_merge:
   stage: staging
-  when: on_success
   allow_failure: false
   script:
-    - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
-  only:
-    - merge_requests
+    - echo -e '\033[36;1m ******* OPEN MERGE REQUEST ******** \033[0m'
+    - docker run --rm
+        --env CI_PROJECT_ID=${CI_PROJECT_ID}
+        --env CI_COMMIT_REF_NAME=${CI_COMMIT_REF_NAME}
+        --env CI_DEFAULT_BRANCH=${CI_DEFAULT_BRANCH}
+        --env GITLAB_USER_ID=${GITLAB_USER_ID}
+        --env PRIVATE_TOKEN=${PRIVATE_TOKEN}
+        alexandreoda/gitlab_auto_merge_requests
+        bash auto_merge_requests.sh --open
+  only: 
+    - dev
 
 enable_merge:
-  only:
-    - merge_requests
+  stage: deploy
+  allow_failure: false
   script:
-    - echo true
+    - echo -e '\033[36;1m ******* ENABLE MERGE WHEN PIPELINE SUCCEEDS ******** \033[0m'
+    - docker run --rm
+        --env CI_PROJECT_ID=${CI_PROJECT_ID}
+        --env GITLAB_USER_ID=${GITLAB_USER_ID}
+        --env PRIVATE_TOKEN=${PRIVATE_TOKEN}
+        alexandreoda/gitlab_auto_merge_requests
+        bash auto_merge_requests.sh --enable
+  only: 
+    - merge_requests
 
 deploy:
   stage: deploy
-  when: on_success
-  allow_failure: false
   script:
     - echo -e '\033[36;1m ******* DEPLOYMENT FINISHED SUCCESSFULLY ******** \033[0m'
-  only:
+  only: 
     - master
