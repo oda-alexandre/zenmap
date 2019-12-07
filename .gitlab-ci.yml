@@ -130,7 +130,7 @@ enable_merge:
     - echo -e '\033[36;1m ******* ENABLE MERGE WHEN PIPELINE SUCCEEDS ******** \033[0m'
     - docker run --rm
         --env CI_PROJECT_ID=${CI_PROJECT_ID}
-        --env GITLAB_USER_ID=${GITLAB_USER_ID}
+        --env CI_MERGE_REQUEST_IID=${CI_MERGE_REQUEST_IID}
         --env PRIVATE_TOKEN=${PRIVATE_TOKEN}
         alexandreoda/gitlab_auto_merge_requests
         bash auto_merge_requests.sh --enable
