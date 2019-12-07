@@ -9,10 +9,6 @@ stages:
   - staging
   - deploy
 
-before_script:
-  - echo -e '\033[36;1m ******* DOCKER LOGIN REGISTRY ******** \033[0m'
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
 build:
   stage: build
   allow_failure: false
