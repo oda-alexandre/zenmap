@@ -6,6 +6,7 @@ services:
 stages:
   - build
   - test
+  - date
   - staging
   - deploy
 
@@ -100,6 +101,15 @@ test_app:
     - echo -e '\033[36;1m ******* TEST APP ******** \033[0m'
     - docker build -t ${CI_PROJECT_NAME} .
     - docker run --rm -d ${CI_PROJECT_NAME}
+  only:
+    - dev
+
+date:
+  stage: date
+  allow_failure: false
+  script:
+    - echo -e '\033[36;1m ******* DATE ******** \033[0m'
+    - "date=$(date +\"%Y-%m-%d\") && sed -i \"s/^Date: .*/Date: $date/\" README.md"
   only:
     - dev
 
