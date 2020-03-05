@@ -10,6 +10,8 @@
   - [INTRODUCTION](#introduction)
   - [PREREQUISITES](#prerequisites)
   - [INSTALL](#install)
+    - [DOCKER RUN](#docker-run)
+    - [DOCKER COMPOSE](#docker-compose)
   - [LICENSE](#license)
 
 ## BADGES
@@ -24,7 +26,7 @@ Docker image of :
 
 Continuous integration on :
 
-- [gitlab](https://gitlab.com/oda-alexandre/zenmap/pipelines)
+- [gitlab pipelines](https://gitlab.com/oda-alexandre/zenmap/pipelines)
 
 Automatically updated on :
 
@@ -36,7 +38,32 @@ Use [docker](https://www.docker.com)
 
 ## INSTALL
 
-```docker run -d --name zenmap -v ${HOME}:/home/zenmap -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v ${XAUTHORITY}:/xauthority:ro -e XAUTHORITY='/xauthority' -e DISPLAY alexandreoda/zenmap```
+### DOCKER RUN
+
+```\
+docker run -d --name zenmap -v ${HOME}:/home/zenmap -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v ${XAUTHORITY}:/xauthority:ro -e XAUTHORITY='/xauthority' -e DISPLAY alexandreoda/zenmap
+```
+
+### DOCKER COMPOSE
+
+```yml
+version: "3.7"
+
+services:
+  zenmap:
+    container_name: zenmap
+    image: alexandreoda/zenmap
+    restart: "no"
+    privileged: false
+    environment:
+      - DISPLAY
+      - XAUTHORITY='/xauthority'
+    volumes:
+      - "${HOME}:/home/zenmap"
+      - "/tmp/.X11-unix/:/tmp/.X11-unix/"
+      - "${XAUTHORITY}:/xauthority:ro"
+      - "/tmp/.X11-unix/:/tmp/.X11-unix/"
+```
 
 ## LICENSE
 

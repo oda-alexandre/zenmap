@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  zenmap:
+    container_name: zenmap
+    image: alexandreoda/zenmap
+    restart: "no"
+    privileged: false
+    environment:
+      - DISPLAY
+      - XAUTHORITY='/xauthority'
+    volumes:
+      - "${HOME}:/home/zenmap"
+      - "/tmp/.X11-unix/:/tmp/.X11-unix/"
+      - "${XAUTHORITY}:/xauthority:ro"
+      - "/tmp/.X11-unix/:/tmp/.X11-unix/"
