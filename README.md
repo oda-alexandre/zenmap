@@ -41,7 +41,14 @@ Use [docker](https://www.docker.com)
 ### DOCKER RUN
 
 ```\
-docker run -d --name zenmap -v ${HOME}:/home/zenmap -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v ${XAUTHORITY}:/xauthority:ro -e XAUTHORITY='/xauthority' -e DISPLAY alexandreoda/zenmap
+docker run -d \
+--name zenmap \
+-e DISPLAY \
+-e XAUTHORITY='/xauthority' \
+-v ${HOME}:/home/zenmap \
+-v /tmp/.X11-unix/:/tmp/.X11-unix/ \
+-v ${XAUTHORITY}:/xauthority:ro \
+alexandreoda/zenmap
 ```
 
 ### DOCKER COMPOSE
