@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM alexandreoda/starfighter
 
 LABEL authors https://www.oda-alexandre.com
 
