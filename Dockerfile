@@ -1,4 +1,4 @@
-FROM alexandreoda/starfighter
+FROM debian:buster-slim
 
 LABEL authors https://www.oda-alexandre.com
 
